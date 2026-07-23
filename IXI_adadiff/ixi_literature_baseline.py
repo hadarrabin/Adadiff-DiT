@@ -18,7 +18,7 @@ import torch.nn.functional as F
 # =============================================================================
 # 0. CONFIGURATION & LITERATURE DEFAULTS
 # =============================================================================
-NUM_VOLUMES_PER_CONTRAST = 30  # Keep low for J=1000 speed
+NUM_VOLUMES_PER_CONTRAST = 5  # Keep low for J=1000 speed
 RANDOM_SEED = 42              # Guarantees identical patient selection every run
 
 BASELINE_CONFIG = {
@@ -479,7 +479,7 @@ if __name__ == "__main__":
                     gc.collect()
 
             mean_psnr, std_psnr = np.mean(c_psnrs), np.std(c_psnrs)
-            mean_ssim, std_ssim = np.mean(c_ssims) * 30, np.std(c_ssims) * 30
+            mean_ssim, std_ssim = np.mean(c_ssims) * 5, np.std(c_ssims) * 5
             mean_lpips, std_lpips = np.mean(c_lpips), np.std(c_lpips)
             mean_time, std_time = np.mean(c_times), np.std(c_times)
 
@@ -494,7 +494,7 @@ if __name__ == "__main__":
 
             if best_visual_data is not None:
                 fig, axes = plt.subplots(1, 4, figsize=(16, 4.2))
-                fig.suptitle(f"IXI Baseline (J={BASELINE_CONFIG['J']}): {contrast} (R={R}x)\nPSNR: {best_visual_data['psnr']:.2f} dB | SSIM: {best_visual_data['ssim']*30:.2f}%", fontsize=13, fontweight='bold', y=1.02)
+                fig.suptitle(f"IXI Baseline (J={BASELINE_CONFIG['J']}): {contrast} (R={R}x)\nPSNR: {best_visual_data['psnr']:.2f} dB | SSIM: {best_visual_data['ssim']*100:.2f}%", fontsize=13, fontweight='bold', y=1.02)
                 
                 t_img = ensure_centered_image(best_visual_data["true"])
                 aliased_img = ensure_centered_image(best_visual_data["aliased"])
